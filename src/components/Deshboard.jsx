@@ -32,7 +32,7 @@ const PRIMARY_COLOR = 'bg-green-600';
 const ACCENT_COLOR = 'text-green-600';
 const SOFT_BG = 'bg-slate-50';
 
-
+const API_BASE_URL_TO = import.meta.env.VITE_API_URL;
 
 const doctors = [
   {
@@ -459,7 +459,7 @@ const   Dashboard = () => {
   
     useEffect(() => {
       axios
-        .get(`https://api.care2connect.in/get_appointments/${moment(selecteddate).format("YYYY-MM-DD")}/${Cookies.get('user')}`)
+        .get(`${API_BASE_URL_TO}/get_appointments/${moment(selecteddate).format("YYYY-MM-DD")}/${Cookies.get('user')}`)
         .then((res) => {
           setData((res.data).filter((item)=>(parseFloat(item.amount)>=0)).sort((a, b) => Number(a.appointment_index) - Number(b.appointment_index)));
           const appointment = (res.data).filter((item)=>(parseFloat(item.amount)>=0)).length
@@ -480,7 +480,7 @@ const   Dashboard = () => {
         const fetchData = async () => {
             try {
             const response = await axios.get(
-                'https://api.care2connect.in/manage_opd_requests'
+                `${API_BASE_URL_TO}/manage_opd_requests`
             );
             console.log(response.data);
             setrequests(response.data)
@@ -495,7 +495,7 @@ const   Dashboard = () => {
   
   
     const downloadPdf = async () => {
-    const response = await fetch(`https://api.care2connect.in/pdf/${moment(selecteddate).format("YYYY-MM-DD")}/`);
+    const response = await fetch(`${API_BASE_URL_TO}/pdf/${moment(selecteddate).format("YYYY-MM-DD")}/`);
     const blob = await response.blob();
     const url = window.URL.createObjectURL(new Blob([blob]));
   
@@ -520,7 +520,7 @@ const   Dashboard = () => {
               if (result.isConfirmed) {
                 showLoader()
                 try {
-                  const res =await axios.post(`https://api.care2connect.in/book_appointment_current_opd`,userdata)
+                  const res =await axios.post(`${API_BASE_URL_TO}/book_appointment_current_opd`,userdata)
                      console.log(res.data.data)
                     const data=res.data.data
                     setrequests((prev) =>
@@ -558,7 +558,7 @@ const   Dashboard = () => {
                 showLoader()
                 try {
                     await axios.delete(
-                        `https://api.care2connect.in/manage_opd_requests?id=${id}`
+                        `${API_BASE_URL_TO}/manage_opd_requests?id=${id}`
                         );
                         // update UI without refetch
                         setrequests((prev) =>

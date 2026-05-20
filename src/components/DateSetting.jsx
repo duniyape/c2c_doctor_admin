@@ -58,7 +58,7 @@ const DateSetting = () => {
   
   // Note: Using a hardcoded ID from the user's original request for API calls
   const USER_ID = Cookies.get('user');
-  const BASE_API_URL = 'https://api.care2connect.in';
+  const BASE_API_URL = import.meta.env.VITE_API_URL;
 
   const [currentDate, setCurrentDate] = useState(new Date());
   const [availableDays, setAvailableDays] = useState([]); 

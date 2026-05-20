@@ -6,10 +6,12 @@ import Swal from 'sweetalert2'
 import axios from "axios";
 import moment from "moment";
 const CalendarWithTimeSlots = () => {
+
+  const BASE_API_URL = import.meta.env.VITE_API_URL;
   
 
     const USER_ID = Cookies.get('user');
-  const BASE_API_URL = 'https://api.care2connect.in';
+  // const BASE_API_URL = 'https://api.care2connect.in';
 
   const [currentMonth, setCurrentMonth] = useState(dayjs());
   const [selectedDay, setSelectedDay] = useState(dayjs().date()); // Default to today's date
